@@ -15,10 +15,16 @@ module.exports = {
         historyApiFallback: true
     },
     module: {
-        rules: [{
-            test: /\.(ts|js)x?/,
-            exclude: /node_modules/,
-            loader: 'babel-loader'
-        }]
+        rules: [
+            {
+                test: /\.(ts|js)x?/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },
+            {
+                test: /\s[ac]ss$/i,
+                use: ['style-loader', 'css-loader', 'sass-loader']
+            }
+        ]
     }
 }
