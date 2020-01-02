@@ -22,6 +22,16 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
+                test: /\.json$/,
+                loader: 'json-loader',
+                type: 'javascript/auto'
+            },
+            {
+                test: /\.(png|svg|jpg|gif|wav)$/,
+                exclude: /node_modules/,
+                use: ['file-loader']
+            },
+            {
                 test: /\s[ac]ss$/i,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             }
