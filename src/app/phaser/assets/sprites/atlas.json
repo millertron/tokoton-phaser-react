@@ -1,0 +1,16 @@
+{
+    "frames": [
+        {
+            "filename": "playerDefault",
+            "frame": {"x":153,"y":386,"w":38,"h":34}
+        },
+        {
+            "filename": "playerLeft",
+            "frame": {"x":194,"y":386,"w":38,"h":34}
+        },
+        {
+            "filename": "playerRight",
+            "frame": {"x":235,"y":386,"w":38,"h":34}
+        }
+    ]
+}
