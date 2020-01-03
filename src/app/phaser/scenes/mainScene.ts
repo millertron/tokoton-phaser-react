@@ -11,17 +11,23 @@ export class MainScene extends Phaser.Scene {
     private downKey
     private leftKey
     private rightKey
+    private fireKey
+    private bullets
+    private bulletRecoil = 0
 
     public preload() {
         this.load.atlas('atlas', atlas, atlasJson)
     }
     
     public create() {
-        this.player = this.add.sprite(100, 100, 'atlas', 'playerDefault').setInteractive()
+        this.player = this.physics.add.sprite(100, 100, 'atlas', 'playerDefault').setInteractive()
+        this.bullets = this.physics.add.group()
+
         this.upKey = this.input.keyboard.addKey('w')
         this.downKey = this.input.keyboard.addKey('s')
         this.leftKey = this.input.keyboard.addKey('a')
         this.rightKey = this.input.keyboard.addKey('d')
+        this.fireKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     }
 
     public update() {
@@ -46,5 +52,19 @@ export class MainScene extends Phaser.Scene {
         if ((leftKeyDown && rightKeyDown) || (!leftKeyDown && !rightKeyDown)) {
             player.setFrame('playerDefault')
         }
+        if (this.fireKey.isDown) {
+            if (this.bulletRecoil >= 5) {
+                this.bulletRecoil = 0
+            }
+            if (this.bulletRecoil === 0) {
+                this.fireBullet();
+            }
+        }
+        this.bulletRecoil++
+    }
+
+    private fireBullet() {
+        const bullet = this.bullets.create(this.player.x, this.player.y - (this.player.height / 4), 'atlas', 'bullet0')
+        bullet.setVelocityY(-100)
     }
 }

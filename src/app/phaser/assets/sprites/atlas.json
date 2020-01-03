@@ -11,6 +11,10 @@
         {
             "filename": "playerLeft",
             "frame": {"x":235,"y":386,"w":38,"h":34}
+        },
+        {
+            "filename": "bullet0",
+            "frame": {"x":213, "y":62, "w":12, "h":7}
         }
     ]
 }
