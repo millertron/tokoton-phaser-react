@@ -65,6 +65,6 @@ export class MainScene extends Phaser.Scene {
 
     private fireBullet() {
         const bullet = this.bullets.create(this.player.x, this.player.y - (this.player.height / 4), 'atlas', 'bullet0')
-        bullet.setVelocityY(-100)
+        bullet.setVelocityY(-400)
     }
 }
