@@ -6,13 +6,13 @@ import atlasJson from '../assets/sprites/atlas.json'
 
 export class MainScene extends Phaser.Scene {
 
-    private player
-    private upKey
-    private downKey
-    private leftKey
-    private rightKey
-    private fireKey
-    private bullets
+    private player?: Phaser.Physics.Arcade.Sprite
+    private upKey?: Phaser.Input.Keyboard.Key
+    private downKey?: Phaser.Input.Keyboard.Key
+    private leftKey?: Phaser.Input.Keyboard.Key
+    private rightKey?: Phaser.Input.Keyboard.Key
+    private fireKey?: Phaser.Input.Keyboard.Key
+    private bullets?: Phaser.Physics.Arcade.Group
     private bulletRecoil = 0
 
     public preload() {
@@ -33,38 +33,43 @@ export class MainScene extends Phaser.Scene {
     public update() {
         let player = this.player
         const playerVelocity = 2
-        if (this.upKey.isDown){
-            player.y-= playerVelocity
-        }
-        if (this.downKey.isDown){
-            player.y+= playerVelocity
-        }
-        const leftKeyDown = this.leftKey.isDown
-        const rightKeyDown = this.rightKey.isDown
-        if (leftKeyDown) {
-            player.x-= playerVelocity
-            player.setFrame('playerLeft')
-        }
-        if (rightKeyDown) {
-            player.x+= playerVelocity
-            player.setFrame('playerRight')
-        }
-        if ((leftKeyDown && rightKeyDown) || (!leftKeyDown && !rightKeyDown)) {
-            player.setFrame('playerDefault')
-        }
-        if (this.fireKey.isDown) {
-            if (this.bulletRecoil >= 5) {
-                this.bulletRecoil = 0
+        if (player) {
+            if (this.upKey && this.upKey.isDown){
+                player.y-= playerVelocity
             }
-            if (this.bulletRecoil === 0) {
-                this.fireBullet();
+            if (this.downKey && this.downKey.isDown){
+                player.y+= playerVelocity
+            }
+            const leftKeyDown = this.leftKey ? this.leftKey.isDown : false
+            const rightKeyDown = this.rightKey? this.rightKey.isDown : false
+            if (leftKeyDown) {
+                player.x-= playerVelocity
+                player.setFrame('playerLeft')
+            }
+            if (rightKeyDown) {
+                player.x+= playerVelocity
+                player.setFrame('playerRight')
+            }
+            if ((leftKeyDown && rightKeyDown) || (!leftKeyDown && !rightKeyDown)) {
+                player.setFrame('playerDefault')
+            }
+            if (this.fireKey && this.fireKey.isDown) {
+                if (this.bulletRecoil >= 5) {
+                    this.bulletRecoil = 0
+                }
+                if (this.bulletRecoil === 0) {
+                    this.fireBullet();
+                }
             }
         }
         this.bulletRecoil++
     }
 
     private fireBullet() {
-        const bullet = this.bullets.create(this.player.x, this.player.y - (this.player.height / 4), 'atlas', 'bullet0')
-        bullet.setVelocityY(-400)
+        let player = this.player
+        if (player && this.bullets) {
+            const bullet = this.bullets.create(player.x, player.y - (player.height / 4), 'atlas', 'bullet0')
+            bullet.setVelocityY(-400)
+        }
     }
 }
