@@ -15,6 +15,10 @@
         {
             "filename": "bullet0",
             "frame": {"x":213, "y":62, "w":12, "h":7}
+        },
+        {
+            "filename": "motherBaseDefault",
+            "frame": {"x":1, "y":138, "w":128, "h":76}
         }
     ]
 }

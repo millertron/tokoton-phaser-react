@@ -7,6 +7,7 @@ import atlasJson from '../assets/sprites/atlas.json'
 export class MainScene extends Phaser.Scene {
 
     private player?: Phaser.Physics.Arcade.Sprite
+    private motherBase?: Phaser.Physics.Arcade.Sprite
     private upKey?: Phaser.Input.Keyboard.Key
     private downKey?: Phaser.Input.Keyboard.Key
     private leftKey?: Phaser.Input.Keyboard.Key
@@ -20,7 +21,8 @@ export class MainScene extends Phaser.Scene {
     }
     
     public create() {
-        this.player = this.physics.add.sprite(100, 100, 'atlas', 'playerDefault').setInteractive()
+        this.player = this.physics.add.sprite(200, 300, 'atlas', 'playerDefault').setInteractive()
+        this.motherBase = this.physics.add.sprite(200, 100, 'atlas', 'motherBaseDefault')
         this.bullets = this.physics.add.group()
 
         this.upKey = this.input.keyboard.addKey('w')
