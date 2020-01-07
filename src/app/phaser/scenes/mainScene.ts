@@ -3,10 +3,12 @@ import Phaser from 'phaser'
 import atlas from '../assets/sprites/atlas.png'
 //@ts-ignore
 import atlasJson from '../assets/sprites/atlas.json'
+import { Player } from '../objects/player'
+import { keyState } from '../types/keyState'
 
 export class MainScene extends Phaser.Scene {
 
-    private player?: Phaser.Physics.Arcade.Sprite
+    private player?: Player
     private motherBase?: Phaser.Physics.Arcade.Sprite
     private upKey?: Phaser.Input.Keyboard.Key
     private downKey?: Phaser.Input.Keyboard.Key
@@ -21,7 +23,7 @@ export class MainScene extends Phaser.Scene {
     }
     
     public create() {
-        this.player = this.physics.add.sprite(200, 300, 'atlas', 'playerDefault').setInteractive()
+        this.player = new Player(this, 200, 300, 'atlas').setInteractive()
         this.motherBase = this.physics.add.sprite(200, 100, 'atlas', 'motherBaseDefault')
         this.bullets = this.physics.add.group()
 
@@ -34,27 +36,15 @@ export class MainScene extends Phaser.Scene {
 
     public update() {
         let player = this.player
-        const playerVelocity = 2
         if (player) {
-            if (this.upKey && this.upKey.isDown){
-                player.y-= playerVelocity
+            const keyState: keyState = {
+                up: this.upKey ? this.upKey.isDown : false,
+                down: this.downKey ? this.downKey.isDown : false,
+                left: this.leftKey ? this.leftKey.isDown : false,
+                right: this.rightKey ? this.rightKey.isDown : false,
             }
-            if (this.downKey && this.downKey.isDown){
-                player.y+= playerVelocity
-            }
-            const leftKeyDown = this.leftKey ? this.leftKey.isDown : false
-            const rightKeyDown = this.rightKey? this.rightKey.isDown : false
-            if (leftKeyDown) {
-                player.x-= playerVelocity
-                player.setFrame('playerLeft')
-            }
-            if (rightKeyDown) {
-                player.x+= playerVelocity
-                player.setFrame('playerRight')
-            }
-            if ((leftKeyDown && rightKeyDown) || (!leftKeyDown && !rightKeyDown)) {
-                player.setFrame('playerDefault')
-            }
+            player.move(keyState)
+            
             if (this.fireKey && this.fireKey.isDown) {
                 if (this.bulletRecoil >= 5) {
                     this.bulletRecoil = 0
