@@ -17,6 +17,42 @@
             "frame": {"x":213, "y":62, "w":12, "h":7}
         },
         {
+            "filename": "bullet1",
+            "frame": {"x":227, "y":62, "w":12, "h":7}
+        },
+        {
+            "filename": "bullet2",
+            "frame": {"x":241, "y":62, "w":12, "h":7}
+        },
+        {
+            "filename": "yellowDefault",
+            "frame": {"x":1, "y":96, "w":36, "h":39 }
+        },
+        {
+            "filename": "yellowRight",
+            "frame": {"x":40, "y":62, "w":36, "h":39}
+        },
+        {
+            "filename": "yellowLeft",
+            "frame": {"x":79, "y":62, "w":36, "h":39}
+        },
+        {
+            "filename": "redDefault",
+            "frame": {"x":118, "y":96, "w":36, "h":39 }
+        },
+        {
+            "filename": "redRight",
+            "frame": {"x":157, "y":62, "w":36, "h":39}
+        },
+        {
+            "filename": "redLeft",
+            "frame": {"x":196, "y":62, "w":36, "h":39}
+        },
+        {
+            "filename": "greenDefault",
+            "frame": {"x":235, "y":62, "w":36, "h":39}
+        },
+        {
             "filename": "motherBaseDefault",
             "frame": {"x":1, "y":138, "w":128, "h":76}
         }
