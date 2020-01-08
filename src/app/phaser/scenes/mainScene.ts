@@ -5,11 +5,12 @@ import atlas from '../assets/sprites/atlas.png'
 import atlasJson from '../assets/sprites/atlas.json'
 import { Player } from '../objects/player'
 import { keyState } from '../types/keyState'
+import { Mothership } from '../objects/mothership'
 
 export class MainScene extends Phaser.Scene {
 
     private player?: Player
-    private motherBase?: Phaser.Physics.Arcade.Sprite
+    private mothership?: Mothership
     private upKey?: Phaser.Input.Keyboard.Key
     private downKey?: Phaser.Input.Keyboard.Key
     private leftKey?: Phaser.Input.Keyboard.Key
@@ -24,7 +25,7 @@ export class MainScene extends Phaser.Scene {
     
     public create() {
         this.player = new Player(this, 200, 300, 'atlas').setInteractive()
-        this.motherBase = this.physics.add.sprite(200, 100, 'atlas', 'motherBaseDefault')
+        this.mothership = new Mothership(this, 200, 100, 'atlas')
         this.bullets = this.physics.add.group()
 
         this.upKey = this.input.keyboard.addKey('w')
@@ -35,6 +36,9 @@ export class MainScene extends Phaser.Scene {
     }
 
     public update() {
+        if (this.mothership) {
+            this.mothership.move()
+        }
         let player = this.player
         if (player) {
             const keyState: keyState = {

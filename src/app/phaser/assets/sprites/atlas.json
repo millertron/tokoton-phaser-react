@@ -53,7 +53,7 @@
             "frame": {"x":235, "y":62, "w":36, "h":39}
         },
         {
-            "filename": "motherBaseDefault",
+            "filename": "mothershipDefault",
             "frame": {"x":1, "y":138, "w":128, "h":76}
         }
     ]
