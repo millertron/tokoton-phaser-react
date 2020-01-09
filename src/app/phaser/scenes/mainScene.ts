@@ -17,15 +17,19 @@ export class MainScene extends Phaser.Scene {
     private rightKey?: Phaser.Input.Keyboard.Key
     private fireKey?: Phaser.Input.Keyboard.Key
     private bullets?: Phaser.Physics.Arcade.Group
+    private enemyProjectiles?: Phaser.Physics.Arcade.Group
+
+    public static atlasKey = 'atlas'
 
     public preload() {
-        this.load.atlas('atlas', atlas, atlasJson)
+        this.load.atlas(MainScene.atlasKey, atlas, atlasJson)
     }
     
     public create() {
-        this.player = new Player(this, 200, 300, 'atlas').setInteractive()
-        this.mothership = new Mothership(this, 200, 100, 'atlas')
+        this.player = new Player(this, 200, 300).setInteractive()
+        this.mothership = new Mothership(this, 200, 100)
         this.bullets = this.physics.add.group()
+        this.enemyProjectiles = this.physics.add.group()
 
         this.upKey = this.input.keyboard.addKey('w')
         this.downKey = this.input.keyboard.addKey('s')
@@ -36,7 +40,7 @@ export class MainScene extends Phaser.Scene {
 
     public update() {
         if (this.mothership) {
-            this.mothership.move()
+            this.mothership.move(this)
         }
         let player = this.player
         if (player) {
@@ -45,11 +49,12 @@ export class MainScene extends Phaser.Scene {
                 down: this.downKey ? this.downKey.isDown : false,
                 left: this.leftKey ? this.leftKey.isDown : false,
                 right: this.rightKey ? this.rightKey.isDown : false,
+                fire: this.fireKey ? this.fireKey.isDown : false
             }
-            player.move(keyState)
+            player.move(this, keyState)
             
         }
-        this.bulletRecoil++
+        
     }
 
 }

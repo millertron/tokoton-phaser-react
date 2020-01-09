@@ -1,26 +1,31 @@
+import { RedEnemy } from "./redEnemy"
+import { MainScene } from "../scenes/mainScene"
+import { YellowEnemy } from "./yellowEnemy"
+import { GreenEnemy } from "./greenEnemy"
+
 export class Mothership extends Phaser.Physics.Arcade.Sprite {
     
     private charge: number = 0
     private static defaultFrame = 'mothershipDefault'
 
-    constructor(scene: Phaser.Scene, x: number, y: number, textureKey: string) {
-        super(scene, x, y, textureKey, Mothership.defaultFrame)
+    constructor(scene: Phaser.Scene, x: number, y: number) {
+        super(scene, x, y, MainScene.atlasKey, Mothership.defaultFrame)
         scene.add.existing(this)
         scene.physics.add.existing(this)
     }
 
-    move() {
+    move(scene: Phaser.Scene) {
         if (this.charge > 30) {
             if (Math.floor(Math.random() * 100) < 50) {
-                console.log("Red!")
+                new RedEnemy(scene, this.x, this.y, MainScene.atlasKey)
                 this.charge = 0
             }
             if (Math.floor(Math.random() * 100) < 30) {
-                console.log("Yellow!")
+                new YellowEnemy(scene, this.x, this.y, MainScene.atlasKey)
                 this.charge = 0
             }
             if (Math.floor(Math.random() * 100) < 15) {
-                console.log("Green!")
+                new GreenEnemy(scene, this.x, this.y, MainScene.atlasKey)
                 this.charge = 0
             }
         } else {

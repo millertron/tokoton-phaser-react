@@ -30,11 +30,11 @@
         },
         {
             "filename": "yellowRight",
-            "frame": {"x":40, "y":62, "w":36, "h":39}
+            "frame": {"x":40, "y":96, "w":36, "h":39}
         },
         {
             "filename": "yellowLeft",
-            "frame": {"x":79, "y":62, "w":36, "h":39}
+            "frame": {"x":79, "y":96, "w":36, "h":39}
         },
         {
             "filename": "redDefault",
@@ -42,15 +42,15 @@
         },
         {
             "filename": "redRight",
-            "frame": {"x":157, "y":62, "w":36, "h":39}
+            "frame": {"x":157, "y":96, "w":36, "h":39}
         },
         {
             "filename": "redLeft",
-            "frame": {"x":196, "y":62, "w":36, "h":39}
+            "frame": {"x":196, "y":96, "w":36, "h":39}
         },
         {
             "filename": "greenDefault",
-            "frame": {"x":235, "y":62, "w":36, "h":39}
+            "frame": {"x":235, "y":96, "w":36, "h":39}
         },
         {
             "filename": "mothershipDefault",
