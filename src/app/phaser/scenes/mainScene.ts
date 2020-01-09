@@ -17,7 +17,6 @@ export class MainScene extends Phaser.Scene {
     private rightKey?: Phaser.Input.Keyboard.Key
     private fireKey?: Phaser.Input.Keyboard.Key
     private bullets?: Phaser.Physics.Arcade.Group
-    private bulletRecoil = 0
 
     public preload() {
         this.load.atlas('atlas', atlas, atlasJson)
@@ -49,23 +48,8 @@ export class MainScene extends Phaser.Scene {
             }
             player.move(keyState)
             
-            if (this.fireKey && this.fireKey.isDown) {
-                if (this.bulletRecoil >= 5) {
-                    this.bulletRecoil = 0
-                }
-                if (this.bulletRecoil === 0) {
-                    this.fireBullet();
-                }
-            }
         }
         this.bulletRecoil++
     }
 
-    private fireBullet() {
-        let player = this.player
-        if (player && this.bullets) {
-            const bullet = this.bullets.create(player.x, player.y - (player.height / 4), 'atlas', 'bullet0')
-            bullet.setVelocityY(-400)
-        }
-    }
 }

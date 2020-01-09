@@ -6,6 +6,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private static leftFrame = 'playerLeft'
     private static rightFrame = 'playerRight'
     private static velocity = 150
+    private bulletRecoil: number = 0
 
     constructor(scene: Phaser.Scene, x: number, y: number, textureKey: string) {
         super(scene, x, y, textureKey, Player.defaultFrame);
@@ -13,7 +14,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this)
     }
 
-    public move({up, down, left, right} : keyState) {
+    public move(scene: Phaser.Scene, {up, down, left, right, fire} : keyState) {
         this.setVelocity(0)
         if (up) {
             this.setVelocityY(-(Player.velocity))
@@ -31,6 +32,24 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         }
         if ((left && right) || (!left && !right)) {
             this.setFrame(Player.defaultFrame)
+        }
+        if (fire) {
+            if (this.bulletRecoil >= 5) {
+                this.bulletRecoil = 0
+            }
+            if (this.bulletRecoil === 0) {
+                this.fireBullet(scene);
+            }
+        }
+        this.bulletRecoil++
+    }
+
+    
+    private fireBullet(scene: Phaser.Scene) {
+        const bulletGroup = scene.bullets
+        if (bulletGroup) {
+            const bullet = bulletGroup.create(this.x, this.y - (this.height / 4), 'atlas', 'bullet0')
+            bullet.setVelocityY(-400)
         }
     }
 } 
