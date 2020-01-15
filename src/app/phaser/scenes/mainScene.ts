@@ -54,6 +54,10 @@ export class MainScene extends Phaser.Scene {
             player.move(this, keyState)
             
         }
+        this.physics.overlap(this.bullets, this.enemyProjectiles, function(bullet: Phaser.GameObjects.GameObject, enemy: Phaser.GameObjects.GameObject) {
+            bullet.destroy()
+            enemy.destroy()
+        })
         
     }
 
