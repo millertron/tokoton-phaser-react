@@ -1,4 +1,5 @@
 import { MainScene } from "../scenes/mainScene";
+import { Explosion } from "./explosion";
 
 export class Bullet extends Phaser.Physics.Arcade.Sprite {
 
@@ -11,11 +12,15 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
     }
 
     get damage(): number {
-        console.log(this._damage)
         return this._damage
     }
 
     public move() {
-        
+
+    }
+
+    public explode(scene: MainScene) {
+        new Explosion(scene, this.x, this.y, 'laserBulletExplosion')
+        this.destroy()
     }
 }

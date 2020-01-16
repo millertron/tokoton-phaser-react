@@ -55,6 +55,38 @@
         {
             "filename": "mothershipDefault",
             "frame": {"x":1, "y":138, "w":128, "h":76}
+        },
+        {
+            "filename": "laserBulletExplosion0",
+            "frame": {"x": 157, "y": 72, "w": 21, "h": 21}
+        },
+        {
+            "filename": "laserBulletExplosion1",
+            "frame": {"x": 181, "y": 72, "w": 21, "h": 21}
+        },
+        {
+            "filename": "laserBulletExplosion2",
+            "frame": {"x": 205, "y": 72, "w": 21, "h": 21}
+        },
+        {
+            "filename": "laserBulletExplosion3",
+            "frame": {"x": 229, "y": 72, "w": 21, "h": 21}
+        },
+        {
+            "filename": "normalExplosion0",
+            "frame": {"x": 1, "y": 265, "w": 44, "h": 46}
+        },
+        {
+            "filename": "normalExplosion1",
+            "frame": {"x": 48, "y": 265, "w": 44, "h": 46}
+        },
+        {
+            "filename": "normalExplosion2",
+            "frame": {"x": 94, "y": 265, "w": 44, "h": 46}
+        },
+        {
+            "filename": "normalExplosion3",
+            "frame": {"x": 140, "y": 265, "w": 44, "h": 46}
         }
     ]
 }

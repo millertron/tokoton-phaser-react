@@ -8,6 +8,7 @@ import { keyState } from '../types/keyState'
 import { Mothership } from '../objects/mothership'
 import { EnemyProjectile } from '../objects/enemyProjectile'
 import { Bullet } from '../objects/bullet'
+import { Explosion } from '../objects/explosion'
 
 export class MainScene extends Phaser.Scene {
 
@@ -20,6 +21,7 @@ export class MainScene extends Phaser.Scene {
     private _fireKey?: Phaser.Input.Keyboard.Key
     private _bullets?: Phaser.Physics.Arcade.Group
     private _enemyProjectiles?: Phaser.Physics.Arcade.Group
+    private _explosions?: Phaser.GameObjects.Group
     private _score: number = 0
     private _scoreText?: Phaser.GameObjects.Text
 
@@ -34,6 +36,7 @@ export class MainScene extends Phaser.Scene {
         this._mothership = new Mothership(this, 200, 100)
         this._bullets = this.physics.add.group()
         this._enemyProjectiles = this.physics.add.group()
+        this._explosions = this.add.group()
 
         this._upKey = this.input.keyboard.addKey('w')
         this._downKey = this.input.keyboard.addKey('s')
@@ -60,14 +63,19 @@ export class MainScene extends Phaser.Scene {
             player.move(this, keyState)
         }
         this.bullets.getChildren().map(bullet => (<Bullet> bullet).move())
+        this.explosions.getChildren().map(explosion => {
+            (<Explosion> explosion).disperse()
+        })
+
         let score = this._score
+        let scene = this
         const scoreText = <Phaser.GameObjects.Text> this._scoreText
         this.physics.overlap(<Phaser.Physics.Arcade.Group> this._bullets, this._enemyProjectiles, function(bulletObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
             const enemy = <EnemyProjectile> enemyObject
             const bullet = <Bullet> bulletObject
-            score += enemy.takeHit(bullet.damage)        
+            score += enemy.takeHit(scene, bullet.damage)        
             scoreText.setText(`Score: ${score}`)
-            bullet.destroy()
+            bullet.explode(scene)
         })
         this._score = score
     }
@@ -78,6 +86,10 @@ export class MainScene extends Phaser.Scene {
 
     get bullets(){
         return <Phaser.Physics.Arcade.Group> this._bullets
+    }
+
+    get explosions() {
+        return <Phaser.GameObjects.Group> this._explosions
     }
 
     get score() {
