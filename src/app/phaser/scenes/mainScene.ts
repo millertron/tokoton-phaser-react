@@ -9,15 +9,15 @@ import { Mothership } from '../objects/mothership'
 
 export class MainScene extends Phaser.Scene {
 
-    private player?: Player
-    private mothership?: Mothership
-    private upKey?: Phaser.Input.Keyboard.Key
-    private downKey?: Phaser.Input.Keyboard.Key
-    private leftKey?: Phaser.Input.Keyboard.Key
-    private rightKey?: Phaser.Input.Keyboard.Key
-    private fireKey?: Phaser.Input.Keyboard.Key
-    private bullets?: Phaser.Physics.Arcade.Group
-    private enemyProjectiles?: Phaser.Physics.Arcade.Group
+    private _player?: Player
+    private _mothership?: Mothership
+    private _upKey?: Phaser.Input.Keyboard.Key
+    private _downKey?: Phaser.Input.Keyboard.Key
+    private _leftKey?: Phaser.Input.Keyboard.Key
+    private _rightKey?: Phaser.Input.Keyboard.Key
+    private _fireKey?: Phaser.Input.Keyboard.Key
+    private _bullets?: Phaser.Physics.Arcade.Group
+    private _enemyProjectiles?: Phaser.Physics.Arcade.Group
 
     public static atlasKey = 'atlas'
 
@@ -26,39 +26,47 @@ export class MainScene extends Phaser.Scene {
     }
     
     public create() {
-        this.player = new Player(this, 200, 300).setInteractive()
-        this.mothership = new Mothership(this, 200, 100)
-        this.bullets = this.physics.add.group()
-        this.enemyProjectiles = this.physics.add.group()
+        this._player = new Player(this, 200, 300).setInteractive()
+        this._mothership = new Mothership(this, 200, 100)
+        this._bullets = this.physics.add.group()
+        this._enemyProjectiles = this.physics.add.group()
 
-        this.upKey = this.input.keyboard.addKey('w')
-        this.downKey = this.input.keyboard.addKey('s')
-        this.leftKey = this.input.keyboard.addKey('a')
-        this.rightKey = this.input.keyboard.addKey('d')
-        this.fireKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        this._upKey = this.input.keyboard.addKey('w')
+        this._downKey = this.input.keyboard.addKey('s')
+        this._leftKey = this.input.keyboard.addKey('a')
+        this._rightKey = this.input.keyboard.addKey('d')
+        this._fireKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     }
 
     public update() {
-        if (this.mothership) {
-            this.mothership.move(this)
+        if (this._mothership) {
+            this._mothership.move(this)
         }
-        let player = this.player
+        let player = this._player
         if (player) {
             const keyState: keyState = {
-                up: this.upKey ? this.upKey.isDown : false,
-                down: this.downKey ? this.downKey.isDown : false,
-                left: this.leftKey ? this.leftKey.isDown : false,
-                right: this.rightKey ? this.rightKey.isDown : false,
-                fire: this.fireKey ? this.fireKey.isDown : false
+                up: this._upKey ? this._upKey.isDown : false,
+                down: this._downKey ? this._downKey.isDown : false,
+                left: this._leftKey ? this._leftKey.isDown : false,
+                right: this._rightKey ? this._rightKey.isDown : false,
+                fire: this._fireKey ? this._fireKey.isDown : false
             }
             player.move(this, keyState)
             
         }
-        this.physics.overlap(this.bullets, this.enemyProjectiles, function(bullet: Phaser.GameObjects.GameObject, enemy: Phaser.GameObjects.GameObject) {
+        this.physics.overlap(<Phaser.Physics.Arcade.Group> this._bullets, this._enemyProjectiles, function(bullet: Phaser.GameObjects.GameObject, enemy: Phaser.GameObjects.GameObject) {
             bullet.destroy()
             enemy.destroy()
         })
         
+    }
+
+    get enemyProjectiles() {
+        return <Phaser.Physics.Arcade.Group> this._enemyProjectiles
+    }
+
+    get bullets(){
+        return <Phaser.Physics.Arcade.Group> this._bullets
     }
 
 }

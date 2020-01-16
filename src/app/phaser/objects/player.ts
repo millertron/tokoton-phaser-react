@@ -9,13 +9,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private static velocity = 150
     private bulletRecoil: number = 0
 
-    constructor(scene: Phaser.Scene, x: number, y: number) {
+    constructor(scene: MainScene, x: number, y: number) {
         super(scene, x, y, MainScene.atlasKey, Player.defaultFrame);
         scene.add.existing(this)
         scene.physics.add.existing(this)
     }
 
-    public move(scene: Phaser.Scene, {up, down, left, right, fire} : keyState) {
+    public move(scene: MainScene, {up, down, left, right, fire} : keyState) {
         this.setVelocity(0)
         if (up) {
             this.setVelocityY(-(Player.velocity))
@@ -46,11 +46,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     
-    private fireBullet(scene: Phaser.Scene) {
+    private fireBullet(scene: MainScene) {
         const bulletGroup = scene.bullets
-        if (bulletGroup) {
-            const bullet = bulletGroup.create(this.x, this.y - (this.height / 4), 'atlas', 'bullet0')
-            bullet.setVelocityY(-400)
-        }
+        const bullet = bulletGroup.create(this.x, this.y - (this.height / 4), 'atlas', 'bullet0')
+        bullet.setVelocityY(-400)
     }
 } 
