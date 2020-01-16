@@ -13,10 +13,8 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
     public takeHit(damage: number) {
         this._hitPoints -= damage
         if (this._hitPoints < 0) {
-            console.log("DEATH!")
             this.die()
         }
-        console.log(this._hitPoints)
     }
 
     public die() {
