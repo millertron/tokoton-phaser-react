@@ -13,15 +13,15 @@
             "frame": {"x":235,"y":386,"w":38,"h":34}
         },
         {
-            "filename": "bullet0",
+            "filename": "laserBullet0",
             "frame": {"x":213, "y":62, "w":12, "h":7}
         },
         {
-            "filename": "bullet1",
+            "filename": "laserBullet1",
             "frame": {"x":227, "y":62, "w":12, "h":7}
         },
         {
-            "filename": "bullet2",
+            "filename": "laserBullet2",
             "frame": {"x":241, "y":62, "w":12, "h":7}
         },
         {
