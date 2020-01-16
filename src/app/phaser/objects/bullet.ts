@@ -1,6 +1,9 @@
 import { MainScene } from "../scenes/mainScene";
 
 export class Bullet extends Phaser.Physics.Arcade.Sprite {
+
+    protected _damage: number = 0
+
     constructor(scene: MainScene, x: number, y: number, defaultFrame: string) {
         super(scene, x, y, MainScene.atlasKey, defaultFrame);
         scene.add.existing(this)
@@ -8,6 +11,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
     }
 
     get damage(): number {
-        return 0
+        console.log(this._damage)
+        return this._damage
     }
 }

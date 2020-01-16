@@ -6,6 +6,8 @@ import atlasJson from '../assets/sprites/atlas.json'
 import { Player } from '../objects/player'
 import { keyState } from '../types/keyState'
 import { Mothership } from '../objects/mothership'
+import { EnemyProjectile } from '../objects/enemyProjectile'
+import { Bullet } from '../objects/bullet'
 
 export class MainScene extends Phaser.Scene {
 
@@ -54,9 +56,11 @@ export class MainScene extends Phaser.Scene {
             player.move(this, keyState)
             
         }
-        this.physics.overlap(<Phaser.Physics.Arcade.Group> this._bullets, this._enemyProjectiles, function(bullet: Phaser.GameObjects.GameObject, enemy: Phaser.GameObjects.GameObject) {
+        this.physics.overlap(<Phaser.Physics.Arcade.Group> this._bullets, this._enemyProjectiles, function(bulletObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
+            const enemy = <EnemyProjectile> enemyObject
+            const bullet = <Bullet> bulletObject
+            enemy.takeHit(bullet.damage)
             bullet.destroy()
-            enemy.destroy()
         })
         
     }
