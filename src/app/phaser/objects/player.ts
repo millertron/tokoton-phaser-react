@@ -48,6 +48,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     
     private fireBullet(scene: MainScene) {
-        new LaserBullet(scene, this.x, this.y)
+        new LaserBullet(scene, this.x, this.y - (this.height / 4))
     }
 } 

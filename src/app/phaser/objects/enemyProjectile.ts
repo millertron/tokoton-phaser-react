@@ -11,11 +11,13 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
         scene.enemyProjectiles.add(this)
     }
 
-    public takeHit(damage: number) {
+    public takeHit(damage: number): number {
         this._hitPoints -= damage
         if (this._hitPoints < 0) {
             this.die()
+            return this._scoreValue
         }
+        return 0
     }
 
     public die() {

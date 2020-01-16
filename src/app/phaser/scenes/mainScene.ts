@@ -20,6 +20,8 @@ export class MainScene extends Phaser.Scene {
     private _fireKey?: Phaser.Input.Keyboard.Key
     private _bullets?: Phaser.Physics.Arcade.Group
     private _enemyProjectiles?: Phaser.Physics.Arcade.Group
+    private _score: number = 0
+    private _scoreText?: Phaser.GameObjects.Text
 
     public static atlasKey = 'atlas'
 
@@ -38,6 +40,8 @@ export class MainScene extends Phaser.Scene {
         this._leftKey = this.input.keyboard.addKey('a')
         this._rightKey = this.input.keyboard.addKey('d')
         this._fireKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+        this._scoreText = this.add.text(15, 15, 'Score: 0', { fontSize: '20px', fill: '#fff'});
     }
 
     public update() {
@@ -56,13 +60,16 @@ export class MainScene extends Phaser.Scene {
             player.move(this, keyState)
             
         }
+        let score = this._score
+        const scoreText = <Phaser.GameObjects.Text> this._scoreText
         this.physics.overlap(<Phaser.Physics.Arcade.Group> this._bullets, this._enemyProjectiles, function(bulletObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
             const enemy = <EnemyProjectile> enemyObject
             const bullet = <Bullet> bulletObject
-            enemy.takeHit(bullet.damage)
+            score += enemy.takeHit(bullet.damage)        
+            scoreText.setText(`Score: ${score}`)
             bullet.destroy()
         })
-        
+        this._score = score
     }
 
     get enemyProjectiles() {
