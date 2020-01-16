@@ -14,4 +14,8 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
         console.log(this._damage)
         return this._damage
     }
+
+    public move() {
+        
+    }
 }

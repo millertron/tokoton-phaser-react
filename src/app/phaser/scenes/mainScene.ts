@@ -58,8 +58,8 @@ export class MainScene extends Phaser.Scene {
                 fire: this._fireKey ? this._fireKey.isDown : false
             }
             player.move(this, keyState)
-            
         }
+        this.bullets.getChildren().map(bullet => (<Bullet> bullet).move())
         let score = this._score
         const scoreText = <Phaser.GameObjects.Text> this._scoreText
         this.physics.overlap(<Phaser.Physics.Arcade.Group> this._bullets, this._enemyProjectiles, function(bulletObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
