@@ -1,5 +1,6 @@
 import { keyState } from "../types/keyState";
 import { MainScene } from "../scenes/mainScene";
+import { LaserBullet } from "./laserBullet";
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -47,8 +48,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     
     private fireBullet(scene: MainScene) {
-        const bulletGroup = scene.bullets
-        const bullet = bulletGroup.create(this.x, this.y - (this.height / 4), 'atlas', 'bullet0')
-        bullet.setVelocityY(-400)
+        new LaserBullet(scene, this.x, this.y)
     }
 } 
