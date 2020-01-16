@@ -1,4 +1,4 @@
-export type keyState {
+export type keyState = {
     up: boolean,
     down: boolean,
     left: boolean,
