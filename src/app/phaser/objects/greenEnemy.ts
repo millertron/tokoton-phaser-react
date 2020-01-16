@@ -1,12 +1,11 @@
 import { MainScene } from "../scenes/mainScene"
+import { EnemyProjectile } from "./enemyProjectile"
 
-export class GreenEnemy extends Phaser.Physics.Arcade.Sprite {
+export class GreenEnemy extends EnemyProjectile {
     private static defaultFrame = 'greenDefault'
 
-    constructor(scene: MainScene, x: number, y: number, textureKey: string) {
-        super(scene, x, y, textureKey, GreenEnemy.defaultFrame)
-        scene.add.existing(this)
-        scene.enemyProjectiles.add(this)
+    constructor(scene: MainScene, x: number, y: number) {
+        super(scene, x, y, GreenEnemy.defaultFrame)
         this.setVelocityY(100)
     }
 }

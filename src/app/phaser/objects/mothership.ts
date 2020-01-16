@@ -17,15 +17,15 @@ export class Mothership extends Phaser.Physics.Arcade.Sprite {
     move(scene: MainScene) {
         if (this.charge > 15) {
             if (Math.floor(Math.random() * 1000) < 50) {
-                new RedEnemy(scene, this.x, this.y, MainScene.atlasKey)
+                new RedEnemy(scene, this.x, this.y)
                 this.charge = 0
             }
             if (Math.floor(Math.random() * 1000) < 30) {
-                new YellowEnemy(scene, this.x, this.y, MainScene.atlasKey)
+                new YellowEnemy(scene, this.x, this.y)
                 this.charge = 0
             }
             if (Math.floor(Math.random() * 1000) < 15) {
-                new GreenEnemy(scene, this.x, this.y, MainScene.atlasKey)
+                new GreenEnemy(scene, this.x, this.y)
                 this.charge = 0
             }
         } else {
