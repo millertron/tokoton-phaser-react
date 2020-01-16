@@ -3,6 +3,7 @@ import { MainScene } from "../scenes/mainScene"
 export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
 
     protected _hitPoints = 0
+    protected _scoreValue = 0
 
     constructor(scene: MainScene, x: number, y: number, defaultFrame: string) {
         super(scene, x, y, MainScene.atlasKey, defaultFrame)

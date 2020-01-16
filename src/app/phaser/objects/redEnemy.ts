@@ -9,6 +9,7 @@ export class RedEnemy extends EnemyProjectile {
         super(scene, x, y, RedEnemy.defaultFrame)
         this.setVelocityY(100)
         this._hitPoints = 10
+        this._scoreValue = 10
     }
 
 }

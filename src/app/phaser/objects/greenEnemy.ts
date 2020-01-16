@@ -8,6 +8,7 @@ export class GreenEnemy extends EnemyProjectile {
         super(scene, x, y, GreenEnemy.defaultFrame)
         this.setVelocityY(100)
         this._hitPoints = 50
+        this._scoreValue = 100
     }
 
 }
