@@ -80,4 +80,8 @@ export class MainScene extends Phaser.Scene {
         return <Phaser.Physics.Arcade.Group> this._bullets
     }
 
+    get score() {
+        return this._score
+    }
+
 }
