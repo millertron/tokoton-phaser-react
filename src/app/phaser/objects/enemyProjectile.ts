@@ -9,6 +9,7 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
     protected _scoreValue: number = 0
     protected _lifeTime: number = 0
     protected _explosionFrame: string = 'normalExplosion'
+    protected _phase: number = 0
 
     constructor(scene: MainScene, x: number, y: number, defaultFrame: string) {
         super(scene, x, y, MainScene.atlasKey, defaultFrame)
