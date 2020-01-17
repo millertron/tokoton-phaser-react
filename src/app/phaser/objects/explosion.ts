@@ -8,7 +8,7 @@ export class Explosion extends Phaser.GameObjects.Sprite {
     private _maxFrames: number
     private _frameDelayFactor: number
 
-    constructor(scene: MainScene, x: number, y: number, framePrefix: string, maxFrames: number = 4, frameDelayFactor: number = 1) {
+    constructor(scene: MainScene, x: number, y: number, framePrefix:string, frameDelayFactor: number = 1, maxFrames: number = 4) {
         super(scene, x, y, MainScene.atlasKey, `${framePrefix}0`)
         this._frameprefix = framePrefix
         this._maxFrames = maxFrames

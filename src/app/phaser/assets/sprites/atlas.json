@@ -91,6 +91,22 @@
         {
             "filename": "missile",
             "frame": {"x": 213, "y": 33, "w": 7, "h": 24}
+        },
+        {
+            "filename": "missileExplosion0",
+            "frame": {"x": 1, "y": 216, "w": 44, "h": 46}
+        },
+        {
+            "filename": "missileExplosion1",
+            "frame": {"x": 48, "y": 216, "w": 44, "h": 46}
+        },
+        {
+            "filename": "missileExplosion2",
+            "frame": {"x": 94, "y": 216, "w": 44, "h": 46}
+        },
+        {
+            "filename": "missileExplosion3",
+            "frame": {"x": 140, "y": 216, "w": 44, "h": 46}
         }
     ]
 }

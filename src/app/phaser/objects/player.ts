@@ -1,6 +1,7 @@
 import { keyState } from "../types/keyState";
 import { MainScene } from "../scenes/mainScene";
 import { LaserBullet } from "./laserBullet";
+import { Missile } from "./missile";
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -8,7 +9,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private static leftFrame = 'playerLeft'
     private static rightFrame = 'playerRight'
     private static velocity = 150
-    private bulletRecoil: number = 0
+    private static maxBulletRecoil = 5
+    private static maxMissileRecoil = 60
+    private _bulletRecoil: number = 0
+    private _missileRecoil: number = 0
 
     constructor(scene: MainScene, x: number, y: number) {
         super(scene, x, y, MainScene.atlasKey, Player.defaultFrame);
@@ -36,18 +40,32 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.setFrame(Player.defaultFrame)
         }
         if (fire) {
-            if (this.bulletRecoil >= 5) {
-                this.bulletRecoil = 0
+            if (this._bulletRecoil >= Player.maxBulletRecoil) {
+                this._bulletRecoil = 0
             }
-            if (this.bulletRecoil === 0) {
+            if (this._bulletRecoil === 0) {
                 this.fireBullet(scene);
             }
+            if (this._missileRecoil >= Player.maxMissileRecoil) {
+                this._missileRecoil = 0
+            }
+            if (this._missileRecoil === 0) {
+                this.fireMissile(scene);
+            }
         }
-        this.bulletRecoil++
+        this._bulletRecoil++
+        this._missileRecoil++
     }
 
     
     private fireBullet(scene: MainScene) {
         new LaserBullet(scene, this.x, this.y - (this.height / 4))
+    }
+
+    private fireMissile(scene: MainScene) {
+        new Missile(scene, this.x, this.y, Missile.horizontalAcceleration1)
+        new Missile(scene, this.x, this.y, Missile.horizontalAcceleration2)
+        new Missile(scene, this.x, this.y, Missile.horizontalAcceleration1 * -1)
+        new Missile(scene, this.x, this.y, Missile.horizontalAcceleration2 * -1)
     }
 } 

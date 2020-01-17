@@ -26,7 +26,7 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
     }
 
     public die(scene: MainScene) {
-        new Explosion(scene, this.x, this.y, this._explosionFrame, 4, 3)
+        new Explosion(scene, this.x, this.y, this._explosionFrame, 3)
         this.destroy()
     }
 

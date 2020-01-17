@@ -12,6 +12,7 @@ export class LaserBullet extends Bullet {
         super(scene, x, y, LaserBullet.frame0)
         this.setVelocityY(-400)
         this._damage = 2
+        this._explosionFramePrefix = 'laserBulletExplosion'
     }
 
     move() {
