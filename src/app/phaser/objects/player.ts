@@ -2,6 +2,7 @@ import { keyState } from "../types/keyState";
 import { MainScene } from "../scenes/mainScene";
 import { LaserBullet } from "./laserBullet";
 import { Missile } from "./missile";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../config";
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -11,6 +12,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private static velocity = 150
     private static maxBulletRecoil = 5
     private static maxMissileRecoil = 60
+    private static screenMargin = 5
     private _bulletRecoil: number = 0
     private _missileRecoil: number = 0
 
@@ -22,17 +24,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     public move(scene: MainScene, {up, down, left, right, fire} : keyState) {
         this.setVelocity(0)
-        if (up) {
+        if (up && (this.y - this.height) > Player.screenMargin) {
             this.setVelocityY(-(Player.velocity))
         }
-        if (down) {
+        if (down && (this.y + this.height) < (SCREEN_HEIGHT - Player.screenMargin)) {
             this.setVelocityY(Player.velocity)
         }
-        if (left) {
+        if (left && (this.x - this.width) > Player.screenMargin) {
             this.setVelocityX(-(Player.velocity))
             this.setFrame(Player.leftFrame)
         }
-        if (right) {
+        if (right && (this.x + this.width) < (SCREEN_WIDTH - Player.screenMargin)) {
             this.setVelocityX(Player.velocity)
             this.setFrame(Player.rightFrame)
         }
