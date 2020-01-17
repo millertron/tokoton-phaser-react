@@ -51,7 +51,7 @@ export class MainScene extends Phaser.Scene {
         if (this._mothership) {
             this._mothership.move(this)
         }
-        let player = this._player
+        let player = <Player> this._player
         if (player) {
             const keyState: keyState = {
                 up: this._upKey ? this._upKey.isDown : false,
@@ -63,6 +63,7 @@ export class MainScene extends Phaser.Scene {
             player.move(this, keyState)
         }
         this.bullets.getChildren().map(bullet => (<Bullet> bullet).move())
+        this.enemyProjectiles.getChildren().map(enemyProjectile => (<EnemyProjectile> enemyProjectile).move(player))
         this.explosions.getChildren().map(explosion => {
             (<Explosion> explosion).disperse()
         })

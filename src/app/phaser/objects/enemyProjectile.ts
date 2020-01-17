@@ -16,7 +16,7 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
         scene.enemyProjectiles.add(this)
     }
 
-    public takeHit(scene: MainScene, damage: number): number {
+    takeHit(scene: MainScene, damage: number): number {
         this._hitPoints -= damage
         if (this._hitPoints < 0) {
             this.die(scene)
@@ -25,13 +25,13 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
         return 0
     }
 
-    public die(scene: MainScene) {
+    die(scene: MainScene) {
         new Explosion(scene, this.x, this.y, this._explosionFrame, 3)
         this.destroy()
     }
 
-    public move(player: Player) {
-        if (this.y > (1.2 * SCREEN_HEIGHT)) {
+    move(player: Player) {
+        if (this.y > SCREEN_HEIGHT * 1.2) {
             this.destroy()
         }
     }
