@@ -71,7 +71,7 @@ export class MainScene extends Phaser.Scene {
         let score = this._score
         let scene = this
         const scoreText = <Phaser.GameObjects.Text> this._scoreText
-        this.physics.overlap(<Phaser.Physics.Arcade.Group> this._bullets, this._enemyProjectiles, function(bulletObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
+        this.physics.overlap(this.bullets, this._enemyProjectiles, function(bulletObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
             const enemy = <EnemyProjectile> enemyObject
             const bullet = <Bullet> bulletObject
             score += enemy.takeHit(scene, bullet.damage)        
@@ -79,6 +79,12 @@ export class MainScene extends Phaser.Scene {
             bullet.explode(scene)
         })
         this._score = score
+
+        this.physics.overlap(this.bullets, this._mothership, function(mothershipObject: Phaser.GameObjects.GameObject, bulletObject: Phaser.GameObjects.GameObject) {
+            const bullet = <Bullet> bulletObject
+            const mothership = <Mothership> mothershipObject
+            bullet.explode(scene)
+        })
     }
 
     get enemyProjectiles() {
