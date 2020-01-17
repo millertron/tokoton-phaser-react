@@ -5,7 +5,7 @@ export class Missile extends Bullet {
 
     private static defaultFrame = 'missile'
     static horizontalAcceleration1 = 20
-    static horizontalAcceleration2 = 50
+    static horizontalAcceleration2 = 80
     private _horizontalAcceleration: number
 
     constructor(scene: MainScene, x: number, y: number, horizontalAcceleration: number) {
