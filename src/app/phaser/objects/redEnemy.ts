@@ -15,7 +15,7 @@ export class RedEnemy extends EnemyProjectile {
         this._scoreValue = 10
     }
 
-    move(player: Player) {
+    move(scene: MainScene, player: Player) {
         switch(this._phase) {
             case 0:
                 if (this._lifeTime >= RedEnemy.phase1Timer) {
@@ -38,8 +38,7 @@ export class RedEnemy extends EnemyProjectile {
             default:
                 break;
         }
-        this._lifeTime++
-        super.move(player)
+        super.move(scene, player)
     }
 
 }

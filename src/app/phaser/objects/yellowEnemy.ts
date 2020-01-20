@@ -14,7 +14,7 @@ export class YellowEnemy extends EnemyProjectile {
         this._scoreValue = 15
     }
 
-    move(player: Player) {
+    move(scene: MainScene, player: Player) {
         const amplitudeFactor = 300
         const frequencyFactor = 15
         const cosineWaveFactor = amplitudeFactor * Math.cos(this._lifeTime / frequencyFactor)
@@ -30,7 +30,6 @@ export class YellowEnemy extends EnemyProjectile {
             this.setFrame(YellowEnemy.defaultFrame)
         }
 
-        this._lifeTime++
-        super.move(player)
+        super.move(scene, player)
     }
 }

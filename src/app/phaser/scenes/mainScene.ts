@@ -63,7 +63,7 @@ export class MainScene extends Phaser.Scene {
             player.move(this, keyState)
         }
         this.bullets.getChildren().map(bullet => (<Bullet> bullet).move())
-        this.enemyProjectiles.getChildren().map(enemyProjectile => (<EnemyProjectile> enemyProjectile).move(player))
+        this.enemyProjectiles.getChildren().map(enemyProjectile => (<EnemyProjectile> enemyProjectile).move(this, player))
         this.explosions.getChildren().map(explosion => {
             (<Explosion> explosion).disperse()
         })

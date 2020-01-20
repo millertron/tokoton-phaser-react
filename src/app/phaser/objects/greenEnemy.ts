@@ -12,7 +12,7 @@ export class GreenEnemy extends EnemyProjectile {
         this._scoreValue = 50
     }
 
-    move(player: Player) {
+    move(scene: MainScene, player: Player) {
         const proximityThreshold = 100
         if (player.y - this.y > proximityThreshold) {
             const playerFactor = player.x - this.x
@@ -22,7 +22,7 @@ export class GreenEnemy extends EnemyProjectile {
             this.setVelocityX(0)
             this.setAccelerationY(200)
         }
-        super.move(player)
+        super.move(scene, player)
     }
 
 }

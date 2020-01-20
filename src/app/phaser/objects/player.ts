@@ -4,6 +4,7 @@ import { LaserBullet } from "./laserBullet";
 import { Missile } from "./missile";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../config";
 import { Explosion } from "./explosion";
+import { PlasmaExhaust } from "./plasmaExhaust";
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -45,7 +46,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.recoiledTrigger(scene, Player.laserRecoil, this.fireLaser)
             this.recoiledTrigger(scene, Player.missileRecoil, this.fireMissile)
         }
-        this.recoiledTrigger(scene, 5, this.exhaust)
+        this.recoiledTrigger(scene, PlasmaExhaust.exhaustRecoil, this.exhaust)
         this._lifeTime++
     }
 
@@ -67,6 +68,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     private exhaust(scene: MainScene) {
-        new Explosion(scene, this.x, this.y + (this.height / 3), Explosion.plasmaExhaustFramePrefix, { frameDelayFactor: 3, velocityY: 100, alpha: 0.8 })
+        new PlasmaExhaust(scene, this.x, this.y + (this.height / 3), PlasmaExhaust.directionDown)
     }
 } 

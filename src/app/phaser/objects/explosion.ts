@@ -10,7 +10,6 @@ export type options = {
 
 export class Explosion extends Phaser.Physics.Arcade.Sprite {
 
-    public static plasmaExhaustFramePrefix = 'plasmaExhaust'
     private _lifeTime = 0
     private _frameprefix: string
     private _maxFrames: number
