@@ -1,5 +1,6 @@
 import { MainScene } from "../scenes/mainScene"
 import { EnemyProjectile } from "./enemyProjectile"
+import { Player } from "./player"
 
 export class GreenEnemy extends EnemyProjectile {
     private static defaultFrame = 'greenDefault'
@@ -9,6 +10,10 @@ export class GreenEnemy extends EnemyProjectile {
         this.setVelocityY(100)
         this._hitPoints = 60
         this._scoreValue = 50
+    }
+
+    move(player: Player) {
+        
     }
 
 }
