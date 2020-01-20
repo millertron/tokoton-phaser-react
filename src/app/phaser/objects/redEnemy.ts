@@ -31,8 +31,9 @@ export class RedEnemy extends EnemyProjectile {
                 }
                 break;
             case 1:
+                const playerFactor = 20 * (this.x < player.x ? 1 : -1)
                 const sineWaveFactor = 10 * Math.sin(this._lifeTime / 10)
-                this.setVelocityX(this._rootVelocityX + sineWaveFactor)
+                this.setVelocityX(this._rootVelocityX + sineWaveFactor + playerFactor)
                 break;
             default:
                 break;
