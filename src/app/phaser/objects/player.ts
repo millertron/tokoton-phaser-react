@@ -49,7 +49,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this._lifeTime++
     }
 
-    
     private recoiledTrigger(scene: MainScene, recoil: number, callback: Function) {
         if (this._lifeTime % recoil === 0) {
             callback.call(this, scene)
@@ -68,6 +67,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     private exhaust(scene: MainScene) {
-        new Explosion(scene, this.x, this.y + (this.height / 4), Explosion.plasmaExhaustFramePrefix, { velocityY: 50, alpha: 0.8 })
+        new Explosion(scene, this.x, this.y + (this.height / 3), Explosion.plasmaExhaustFramePrefix, { frameDelayFactor: 3, velocityY: 100, alpha: 0.8 })
     }
 } 
