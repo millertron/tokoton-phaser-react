@@ -21,7 +21,6 @@ export class Explosion extends Phaser.Physics.Arcade.Sprite {
         this._maxFrames = options.maxFrames || 4
         this._frameDelayFactor = options.frameDelayFactor || 1
 
-        console.log(options.velocityY || 0)
         scene.add.existing(this)
         scene.explosions.add(this)
         this.setVelocityX(options.velocityX || 0)
