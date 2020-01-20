@@ -27,7 +27,7 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
     }
 
     die(scene: MainScene) {
-        new Explosion(scene, this.x, this.y, this._explosionFrame, 3)
+        new Explosion(scene, this.x, this.y, this._explosionFrame, { frameDelayFactor: 3 })
         this.destroy()
     }
 

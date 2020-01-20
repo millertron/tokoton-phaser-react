@@ -21,7 +21,7 @@ export class MainScene extends Phaser.Scene {
     private _fireKey?: Phaser.Input.Keyboard.Key
     private _bullets?: Phaser.Physics.Arcade.Group
     private _enemyProjectiles?: Phaser.Physics.Arcade.Group
-    private _explosions?: Phaser.GameObjects.Group
+    private _explosions?: Phaser.Physics.Arcade.Group
     private _score: number = 0
     private _scoreText?: Phaser.GameObjects.Text
 
@@ -36,7 +36,7 @@ export class MainScene extends Phaser.Scene {
         this._mothership = new Mothership(this, 200, 100)
         this._bullets = this.physics.add.group()
         this._enemyProjectiles = this.physics.add.group()
-        this._explosions = this.add.group()
+        this._explosions = this.physics.add.group()
 
         this._upKey = this.input.keyboard.addKey('w')
         this._downKey = this.input.keyboard.addKey('s')
@@ -96,7 +96,7 @@ export class MainScene extends Phaser.Scene {
     }
 
     get explosions() {
-        return <Phaser.GameObjects.Group> this._explosions
+        return <Phaser.Physics.Arcade.Group> this._explosions
     }
 
     get score() {

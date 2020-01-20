@@ -107,6 +107,22 @@
         {
             "filename": "missileExplosion3",
             "frame": {"x": 140, "y": 216, "w": 44, "h": 46}
+        },
+        {
+            "filename": "plasmaExhaust0",
+            "frame": { "x": 157, "y": 59, "w": 11, "h": 10}
+        },
+        {
+            "filename": "plasmaExhaust1",
+            "frame": { "x": 171, "y": 59, "w": 11, "h": 10}
+        },
+        {
+            "filename": "plasmaExhaust2",
+            "frame": { "x": 185, "y": 59, "w": 11, "h": 10}
+        },
+        {
+            "filename": "plasmaExhaust3",
+            "frame": { "x": 199, "y": 59, "w": 11, "h": 10}
         }
     ]
 }

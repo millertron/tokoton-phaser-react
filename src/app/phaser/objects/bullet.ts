@@ -22,7 +22,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
     }
 
     public explode(scene: MainScene) {
-        new Explosion(scene, this.x, this.y, this._explosionFramePrefix, this._explosionFrameDelayFactor)
+        new Explosion(scene, this.x, this.y, this._explosionFramePrefix, { frameDelayFactor: this._explosionFrameDelayFactor })
         this.destroy()
     }
 }

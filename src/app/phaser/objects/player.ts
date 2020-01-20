@@ -3,6 +3,7 @@ import { MainScene } from "../scenes/mainScene";
 import { LaserBullet } from "./laserBullet";
 import { Missile } from "./missile";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../config";
+import { Explosion } from "./explosion";
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -10,11 +11,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private static leftFrame = 'playerLeft'
     private static rightFrame = 'playerRight'
     private static velocity = 150
-    private static maxBulletRecoil = 5
-    private static maxMissileRecoil = 60
+    private static laserRecoil = 5
+    private static missileRecoil = 60
     private static screenMargin = 5
-    private _bulletRecoil: number = 0
-    private _missileRecoil: number = 0
+    private _lifeTime: number = 0
 
     constructor(scene: MainScene, x: number, y: number) {
         super(scene, x, y, MainScene.atlasKey, Player.defaultFrame);
@@ -42,25 +42,21 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.setFrame(Player.defaultFrame)
         }
         if (fire) {
-            if (this._bulletRecoil >= Player.maxBulletRecoil) {
-                this._bulletRecoil = 0
-            }
-            if (this._bulletRecoil === 0) {
-                this.fireBullet(scene);
-            }
-            if (this._missileRecoil >= Player.maxMissileRecoil) {
-                this._missileRecoil = 0
-            }
-            if (this._missileRecoil === 0) {
-                this.fireMissile(scene);
-            }
+            this.recoiledTrigger(scene, Player.laserRecoil, this.fireLaser)
+            this.recoiledTrigger(scene, Player.missileRecoil, this.fireMissile)
         }
-        this._bulletRecoil++
-        this._missileRecoil++
+        this.recoiledTrigger(scene, 5, this.exhaust)
+        this._lifeTime++
     }
 
     
-    private fireBullet(scene: MainScene) {
+    private recoiledTrigger(scene: MainScene, recoil: number, callback: Function) {
+        if (this._lifeTime % recoil === 0) {
+            callback.call(this, scene)
+        }
+    }
+
+    private fireLaser(scene: MainScene) {
         new LaserBullet(scene, this.x, this.y - (this.height / 4))
     }
 
@@ -69,5 +65,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         new Missile(scene, this.x, this.y, Missile.horizontalAcceleration2)
         new Missile(scene, this.x, this.y, Missile.horizontalAcceleration1 * -1)
         new Missile(scene, this.x, this.y, Missile.horizontalAcceleration2 * -1)
+    }
+
+    private exhaust(scene: MainScene) {
+        new Explosion(scene, this.x, this.y + (this.height / 4), Explosion.plasmaExhaustFramePrefix, { velocityY: 50, alpha: 0.8 })
     }
 } 
