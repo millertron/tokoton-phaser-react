@@ -21,7 +21,6 @@ export class SpaceTorpedo extends EnemyProjectile {
                 frame = i - 1
             }
         }
-        console.log(frame)
         this.setFrame(`${SpaceTorpedo.framePrefix}${frame}`)
         this._lifeTime++
         if (this.y > SCREEN_HEIGHT * 1.2) {
