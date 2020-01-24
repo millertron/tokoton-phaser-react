@@ -58,7 +58,7 @@ export class Mothership extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this._lifeTime > 1000) {
-            this._lifeTime = 0
+            this._lifeTime = 1
         } else {
             this._lifeTime++
         }
