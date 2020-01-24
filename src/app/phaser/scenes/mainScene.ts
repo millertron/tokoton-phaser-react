@@ -1,5 +1,7 @@
 import Phaser from 'phaser'
 //@ts-ignore
+import backgroundSky from '../assets/sprites/background_sky.png'
+//@ts-ignore
 import atlas from '../assets/sprites/atlas.png'
 //@ts-ignore
 import atlasJson from '../assets/sprites/atlas.json'
@@ -9,9 +11,11 @@ import { Mothership } from '../objects/mothership'
 import { EnemyProjectile } from '../objects/enemyProjectile'
 import { Bullet } from '../objects/bullet'
 import { Explosion } from '../objects/explosion'
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config'
 
 export class MainScene extends Phaser.Scene {
 
+    private _background?: Phaser.GameObjects.TileSprite
     private _player?: Player
     private _mothership?: Mothership
     private _upKey?: Phaser.Input.Keyboard.Key
@@ -25,13 +29,16 @@ export class MainScene extends Phaser.Scene {
     private _score: number = 0
     private _scoreText?: Phaser.GameObjects.Text
 
+    public static backgroundKey = 'background'
     public static atlasKey = 'atlas'
 
     public preload() {
+        this.load.image(MainScene.backgroundKey, backgroundSky)
         this.load.atlas(MainScene.atlasKey, atlas, atlasJson)
     }
     
     public create() {
+        this._background = this.add.tileSprite(0 + SCREEN_WIDTH / 2, 0 + SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, MainScene.backgroundKey)
         this._player = new Player(this, 200, 300).setInteractive()
         this._mothership = new Mothership(this, 200, 100)
         this._bullets = this.physics.add.group()
