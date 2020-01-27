@@ -12,6 +12,7 @@ import { EnemyProjectile } from '../objects/enemyProjectile'
 import { Bullet } from '../objects/bullet'
 import { Explosion } from '../objects/explosion'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config'
+import { SpaceTorpedo } from '../objects/spaceTorpedo'
 
 export class MainScene extends Phaser.Scene {
 
@@ -89,8 +90,14 @@ export class MainScene extends Phaser.Scene {
 
         this.physics.overlap(this.bullets, this._mothership, function(mothershipObject: Phaser.GameObjects.GameObject, bulletObject: Phaser.GameObjects.GameObject) {
             const bullet = <Bullet> bulletObject
-            const mothership = <Mothership> mothershipObject
             bullet.explode(scene)
+        })
+
+        this.physics.overlap(player, this._enemyProjectiles, function(playerObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
+            const enemyProjectile = <EnemyProjectile> enemyObject
+            if (enemyProjectile instanceof SpaceTorpedo) {
+                enemyProjectile.die(scene)
+            }
         })
     }
 

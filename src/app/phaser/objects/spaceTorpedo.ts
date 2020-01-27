@@ -7,8 +7,9 @@ import { Exhaust } from "./exhaust";
 
 export class SpaceTorpedo extends EnemyProjectile {
     private static framePrefix = 'spaceTorpedo'
-    private static explosionFramePrefix = 'darkExplosion'
     private static frameDelayFactor = 3
+
+    protected _explosionFrame: string = 'darkExplosion'
 
     constructor(scene: MainScene, x: number, y: number) {
         super(scene, x, y, `${SpaceTorpedo.framePrefix}0`)
