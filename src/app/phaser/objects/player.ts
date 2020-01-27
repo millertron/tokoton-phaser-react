@@ -5,6 +5,7 @@ import { Missile } from "./missile";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../config";
 import { Explosion } from "./explosion";
 import { PlasmaExhaust } from "./plasmaExhaust";
+import { Exhaust } from "./exhaust";
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -68,6 +69,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     private exhaust(scene: MainScene) {
-        new PlasmaExhaust(scene, this.x, this.y + (this.height / 3), PlasmaExhaust.directionDown)
+        new PlasmaExhaust(scene, this.x, this.y + (this.height / 3), Exhaust.directionDown)
     }
 } 

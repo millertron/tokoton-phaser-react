@@ -2,11 +2,12 @@ import { EnemyProjectile } from "./enemyProjectile";
 import { MainScene } from "../scenes/mainScene";
 import { Player } from "./player";
 import { SCREEN_HEIGHT } from "../config";
+import { DarkExhaust } from "./DarkExhaust";
+import { Exhaust } from "./exhaust";
 
 export class SpaceTorpedo extends EnemyProjectile {
     private static framePrefix = 'spaceTorpedo'
     private static explosionFramePrefix = 'darkExplosion'
-    private static exhaustFramePrefix = 'darkExhaust'
     private static frameDelayFactor = 3
 
     constructor(scene: MainScene, x: number, y: number) {
@@ -19,6 +20,9 @@ export class SpaceTorpedo extends EnemyProjectile {
         this._lifeTime++
         if (this._lifeTime > 2 * SpaceTorpedo.frameDelayFactor){
             this._lifeTime = 0
+        }
+        if (this._lifeTime % Exhaust.exhaustRecoil === 0) {
+            new DarkExhaust(scene, this.x, this.y - (this.height / 3), Exhaust.directionUp)
         }
         if (this.y > SCREEN_HEIGHT * 1.2) {
             this.destroy()

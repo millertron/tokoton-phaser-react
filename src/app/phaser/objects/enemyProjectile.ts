@@ -3,6 +3,7 @@ import { Player } from "./player"
 import { SCREEN_HEIGHT } from "../config"
 import { Explosion } from "./explosion"
 import { PlasmaExhaust } from "./plasmaExhaust"
+import { Exhaust } from "./exhaust"
 
 export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
 
@@ -33,8 +34,8 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
     }
 
     move(scene: MainScene, player: Player) {
-        if (this._lifeTime % PlasmaExhaust.exhaustRecoil === 0) {
-            new PlasmaExhaust(scene, this.x, this.y - (this.height / 3), PlasmaExhaust.directionUp)
+        if (this._lifeTime % Exhaust.exhaustRecoil === 0) {
+            new PlasmaExhaust(scene, this.x, this.y - (this.height / 3), Exhaust.directionUp)
         }
         this._lifeTime++
         if (this.y > SCREEN_HEIGHT * 1.2) {
