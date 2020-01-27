@@ -8,5 +8,8 @@ export const Config: Phaser.Types.Core.GameConfig = {
     height: SCREEN_HEIGHT,
     parent: "phaserGameContainer",
     scene: MainScene,
-    physics: { default: 'arcade' }
+    physics: { 
+        default: 'arcade',
+        //arcade: { debug: true } 
+    }
 }
