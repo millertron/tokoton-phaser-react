@@ -15,7 +15,7 @@ export class DarkLaser extends EnemyProjectile {
     private _frameNum = 2
 
     constructor(scene: MainScene, x: number, y: number) {
-        super(scene, x, y, `${DarkLaser.framePrefix}`)
+        super(scene, x, y, `${DarkLaser.framePrefix}2`)
         const velocityX = (scene.player.x - scene.mothership.x) / DarkLaser.targetHitTime
         const velocityY = (scene.player.y - scene.mothership.y) / DarkLaser.targetHitTime
         this.setVelocity(velocityX, velocityY)

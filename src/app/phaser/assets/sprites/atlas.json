@@ -53,8 +53,12 @@
             "frame": {"x":235, "y":96, "w":36, "h":39}
         },
         {
-            "filename": "mothershipDefault",
+            "filename": "mothership0",
             "frame": {"x":1, "y":138, "w":128, "h":76}
+        },
+        {
+            "filename": "mothership1",
+            "frame": {"x":132, "y":138, "w":128, "h":76}
         },
         {
             "filename": "laserBulletExplosion0",

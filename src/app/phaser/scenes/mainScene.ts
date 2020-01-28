@@ -93,6 +93,8 @@ export class MainScene extends Phaser.Scene {
 
         this.physics.overlap(this.bullets, this._mothership, function(mothershipObject: Phaser.GameObjects.GameObject, bulletObject: Phaser.GameObjects.GameObject) {
             const bullet = <Bullet> bulletObject
+            const mothership = <Mothership> mothershipObject
+            mothership.takeHit(scene, bullet.damage)
             bullet.explode(scene)
         })
 
