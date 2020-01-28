@@ -167,8 +167,23 @@
         {
             "filename": "darkExhaust3",
             "frame": { "x": 199, "y": 33, "w": 11, "h": 10}
+        },
+        {
+            "filename": "darkLaser0",
+            "frame": { "x": 1, "y": 386, "w": 35, "h": 34 }
+        },
+        {
+            "filename": "darkLaser1",
+            "frame": { "x": 39, "y": 386, "w": 35, "h": 34 }
+        },
+        {
+            "filename": "darkLaser2",
+            "frame": { "x": 77, "y": 386, "w": 35, "h": 34 }
+        },
+        {
+            "filename": "darkLaser3",
+            "frame": { "x": 115, "y": 386, "w": 35, "h": 34 }
         }
-        
         
     ]
 }

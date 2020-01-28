@@ -4,14 +4,15 @@ import { YellowEnemy } from "./yellowEnemy"
 import { GreenEnemy } from "./greenEnemy"
 import { SCREEN_WIDTH } from "../config"
 import { SpaceTorpedo } from "./spaceTorpedo"
+import { DarkLaser } from "./darkLaser"
 
 export class Mothership extends Phaser.Physics.Arcade.Sprite {
     
-    private charge: number = 0
     private static defaultFrame = 'mothershipDefault'
     private static level1Score = 100
     private static level2Score = 300
     private static level3Score = 1000
+    private static level4Score = 0
     private static speedX = 80
     private static speedY = 50
     private static screenMargin = 0
@@ -52,12 +53,14 @@ export class Mothership extends Phaser.Physics.Arcade.Sprite {
                 new GreenEnemy(scene, this.x, y)
             }
         }
-//scene.score > Mothership.level3Score && 
-        if (this._lifeTime % 100 === 0) {
+        if (scene.score > Mothership.level3Score && this._lifeTime % 100 === 0) {
             new SpaceTorpedo(scene, this.x, y)
         }
+        if (scene.score > Mothership.level4Score && this._lifeTime % 100 === 0) {
+            new DarkLaser(scene, this.x, y)
+        }
 
-        if (this._lifeTime > 1000) {
+        if (this._lifeTime > 8000) {
             this._lifeTime = 1
         } else {
             this._lifeTime++

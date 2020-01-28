@@ -13,6 +13,7 @@ import { Bullet } from '../objects/bullet'
 import { Explosion } from '../objects/explosion'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config'
 import { SpaceTorpedo } from '../objects/spaceTorpedo'
+import { DarkLaser } from '../objects/darkLaser'
 
 export class MainScene extends Phaser.Scene {
 
@@ -82,9 +83,11 @@ export class MainScene extends Phaser.Scene {
         this.physics.overlap(this.bullets, this._enemyProjectiles, function(bulletObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
             const enemy = <EnemyProjectile> enemyObject
             const bullet = <Bullet> bulletObject
-            score += enemy.takeHit(scene, bullet.damage)        
-            scoreText.setText(`Score: ${score}`)
-            bullet.explode(scene)
+            if (!(enemy instanceof DarkLaser)){
+                score += enemy.takeHit(scene, bullet.damage)       
+                scoreText.setText(`Score: ${score}`)
+                bullet.explode(scene)
+            }
         })
         this._score = score
 
@@ -95,7 +98,7 @@ export class MainScene extends Phaser.Scene {
 
         this.physics.overlap(player, this._enemyProjectiles, function(playerObject: Phaser.GameObjects.GameObject, enemyObject: Phaser.GameObjects.GameObject) {
             const enemyProjectile = <EnemyProjectile> enemyObject
-            if (enemyProjectile instanceof SpaceTorpedo) {
+            if (enemyProjectile instanceof SpaceTorpedo || enemyProjectile instanceof DarkLaser) {
                 enemyProjectile.die(scene)
             }
         })
@@ -115,6 +118,14 @@ export class MainScene extends Phaser.Scene {
 
     get score() {
         return this._score
+    }
+
+    get player() {
+        return <Player> this._player
+    }
+
+    get mothership() {
+        return <Mothership> this._mothership
     }
 
 }
