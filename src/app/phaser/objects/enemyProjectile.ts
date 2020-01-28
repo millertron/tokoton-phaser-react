@@ -33,7 +33,7 @@ export class EnemyProjectile extends Phaser.Physics.Arcade.Sprite {
         this.destroy()
     }
 
-    move(scene: MainScene, player: Player) {
+    move(scene: MainScene) {
         if (this._lifeTime % Exhaust.exhaustRecoil === 0) {
             new PlasmaExhaust(scene, this.x, this.y - (this.height / 3), Exhaust.directionUp)
         }

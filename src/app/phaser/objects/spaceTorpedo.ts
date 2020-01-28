@@ -16,7 +16,7 @@ export class SpaceTorpedo extends EnemyProjectile {
         this.setVelocityY(75)
     }
 
-    move(scene: MainScene, player: Player) {
+    move(scene: MainScene) {
         this.setFrame(`${SpaceTorpedo.framePrefix}${Math.floor(this._lifeTime / SpaceTorpedo.frameDelayFactor)}`)
         this._lifeTime++
         if (this._lifeTime > 2 * SpaceTorpedo.frameDelayFactor){

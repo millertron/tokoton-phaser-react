@@ -21,7 +21,7 @@ export class DarkLaser extends EnemyProjectile {
         this.setVelocity(velocityX, velocityY)
     }
 
-    move(scene: MainScene, player: Player) {
+    move(scene: MainScene) {
         
         if (this._lifeTime % DarkLaser.frameDelayFactor === 0){
             this._frameNum = this._frameNum === 2 ? 3 : 2
