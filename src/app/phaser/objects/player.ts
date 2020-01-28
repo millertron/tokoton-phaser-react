@@ -16,12 +16,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private static laserRecoil = 5
     private static missileRecoil = 60
     private static screenMargin = 5
+    private static boundaryDimension = 2
     private _lifeTime: number = 0
 
     constructor(scene: MainScene, x: number, y: number) {
         super(scene, x, y, MainScene.atlasKey, Player.defaultFrame);
         scene.add.existing(this)
         scene.physics.add.existing(this)
+        this.body.setSize(Player.boundaryDimension, Player.boundaryDimension)
     }
 
     public move(scene: MainScene, {up, down, left, right, fire} : keyState) {
