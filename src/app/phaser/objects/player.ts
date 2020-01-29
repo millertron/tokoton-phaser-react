@@ -3,7 +3,6 @@ import { MainScene } from "../scenes/mainScene";
 import { LaserBullet } from "./laserBullet";
 import { Missile } from "./missile";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../config";
-import { Explosion } from "./explosion";
 import { PlasmaExhaust } from "./plasmaExhaust";
 import { Exhaust } from "./exhaust";
 
