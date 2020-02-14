@@ -6,6 +6,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
     protected _damage: number = 0
     protected _explosionFramePrefix: string = ''
     protected _explosionFrameDelayFactor = 1
+    protected _lifeTime = 0
 
     constructor(scene: MainScene, x: number, y: number, defaultFrame: string) {
         super(scene, x, y, MainScene.atlasKey, defaultFrame);
@@ -17,8 +18,8 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
         return this._damage
     }
 
-    public move() {
-
+    public move(scene: MainScene) {
+        this._lifeTime++
     }
 
     public explode(scene: MainScene) {
