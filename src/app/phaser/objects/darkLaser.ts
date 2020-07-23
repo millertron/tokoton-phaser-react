@@ -10,15 +10,22 @@ export class DarkLaser extends EnemyProjectile {
     private static framePrefix = 'darkLaser'
     protected _explosionFrame: string = 'darkLaser'
 
-    private static targetHitTime = 1.5
+    private static baseVelocity = 250
     private static frameDelayFactor = 3
     private _frameNum = 2
 
     constructor(scene: MainScene, x: number, y: number) {
         super(scene, x, y, `${DarkLaser.framePrefix}2`)
-        const velocityX = (scene.player.x - scene.mothership.x) / DarkLaser.targetHitTime
-        const velocityY = (scene.player.y - scene.mothership.y) / DarkLaser.targetHitTime
-        this.setVelocity(velocityX, velocityY)
+        
+        const dx = (scene.player.x - scene.mothership.x);
+        const dy = (scene.player.y - scene.mothership.y);
+        const d = (dx * dx) + (dy * dy);
+        const xdir = dx < 0 ? -1 : 1;
+        const k = dy / dx;
+        const ix = Math.sqrt(dx * dx / d) * xdir;
+        const iy = Math.abs(k * ix);
+ 
+        this.setVelocity(ix * DarkLaser.baseVelocity, iy * DarkLaser.baseVelocity)
     }
 
     move(scene: MainScene) {
