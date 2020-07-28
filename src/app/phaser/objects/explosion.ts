@@ -6,34 +6,34 @@ export type options = {
     velocityX?: number,
     velocityY?: number,
     alpha?: number
-}
+};
 
 export class Explosion extends Phaser.Physics.Arcade.Sprite {
 
-    private _lifeTime = 0
-    private _frameprefix: string
-    private _maxFrames: number
-    private _frameDelayFactor: number
+    private _lifeTime = 0;
+    private _frameprefix: string;
+    private _maxFrames: number;
+    private _frameDelayFactor: number;
 
     constructor(scene: MainScene, x: number, y: number, framePrefix:string, options: options = {}) {
-        super(scene, x, y, MainScene.atlasKey, `${framePrefix}0`)
-        this._frameprefix = framePrefix
-        this._maxFrames = options.maxFrames || 4
-        this._frameDelayFactor = options.frameDelayFactor || 1
+        super(scene, x, y, MainScene.atlasKey, `${framePrefix}0`);
+        this._frameprefix = framePrefix;
+        this._maxFrames = options.maxFrames || 4;
+        this._frameDelayFactor = options.frameDelayFactor || 1;
 
-        scene.add.existing(this)
-        scene.explosions.add(this)
-        this.setVelocityX(options.velocityX || 0)
-        this.setVelocityY(options.velocityY || 0)
-        this.setAlpha(options.alpha || 1)
+        scene.add.existing(this);
+        scene.explosions.add(this);
+        this.setVelocityX(options.velocityX || 0);
+        this.setVelocityY(options.velocityY || 0);
+        this.setAlpha(options.alpha || 1);
     }
 
     public disperse() {
         if (this._lifeTime >= this._maxFrames * this._frameDelayFactor) {
-            this.destroy()
+            this.destroy();
         } else {
-            this.setFrame(`${this._frameprefix}${Math.floor(this._lifeTime / this._frameDelayFactor)}`)
-            this._lifeTime++
+            this.setFrame(`${this._frameprefix}${Math.floor(this._lifeTime / this._frameDelayFactor)}`);
+            this._lifeTime++;
         }
     }
 }
