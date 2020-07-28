@@ -1,7 +1,7 @@
 import { MainScene } from "./scenes/mainScene";
 
-export const SCREEN_WIDTH = 600
-export const SCREEN_HEIGHT = 500
+export const SCREEN_WIDTH = 600;
+export const SCREEN_HEIGHT = 500;
 
 export const Config: Phaser.Types.Core.GameConfig = {
     width: SCREEN_WIDTH,
@@ -12,4 +12,4 @@ export const Config: Phaser.Types.Core.GameConfig = {
         default: 'arcade',
         //arcade: { debug: true } 
     }
-}
+};

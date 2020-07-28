@@ -4,4 +4,4 @@ export type keyState = {
     left: boolean,
     right: boolean,
     fire: boolean
-}
+};
