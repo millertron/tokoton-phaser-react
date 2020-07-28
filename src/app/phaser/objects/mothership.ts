@@ -1,3 +1,4 @@
+import { Explosion } from './explosion';
 import { RedEnemy } from "./redEnemy";
 import { MainScene } from "../scenes/mainScene";
 import { YellowEnemy } from "./yellowEnemy";
@@ -23,6 +24,9 @@ export class Mothership extends Phaser.Physics.Arcade.Sprite {
     private _hurt: boolean = false;
     private _xDirection: number = 0;
     private _yDirection: number = 0;
+    private _dying: boolean = false;
+    private _deathCounter: number = 250;
+    private _explosionFrame: string = 'normalExplosion';
 
     constructor(scene: MainScene, x: number, y: number) {
         super(scene, x, y, MainScene.atlasKey, `${Mothership.framePrefix}0`);
@@ -34,54 +38,70 @@ export class Mothership extends Phaser.Physics.Arcade.Sprite {
     }
 
     move(scene: MainScene) {
-        if (this.x - this.width < Mothership.screenMargin) {
-            this._xDirection = 1;
-            this.setVelocityX(Mothership.speedX);
-        } else if (this.x + this.width > SCREEN_WIDTH - Mothership.screenMargin) {
-            this._xDirection = -1;
-            this.setVelocityX(-Mothership.speedX);
-        }
-        if (this.y - this.height < Mothership.screenMargin) {
-            this._yDirection = 1;
-            this.setVelocityY(Mothership.speedY);
-        } else if (this.y + this.height > Mothership.screenMargin + Mothership.amplitudeY){
-            this._yDirection = -1;
-            this.setVelocityY(-Mothership.speedY);
-        }
-        if (this._hurt) {
-            this.setFrame(`${Mothership.framePrefix}0`);
-            this.setVelocity(this._xDirection * Mothership.speedX, this._yDirection * Mothership.speedY);
-            this._hurt = false;
-        }
+        if (!this._dying) {
+            if (this.x - this.width < Mothership.screenMargin) {
+                this._xDirection = 1;
+                this.setVelocityX(Mothership.speedX);
+            } else if (this.x + this.width > SCREEN_WIDTH - Mothership.screenMargin) {
+                this._xDirection = -1;
+                this.setVelocityX(-Mothership.speedX);
+            }
+            if (this.y - this.height < Mothership.screenMargin) {
+                this._yDirection = 1;
+                this.setVelocityY(Mothership.speedY);
+            } else if (this.y + this.height > Mothership.screenMargin + Mothership.amplitudeY){
+                this._yDirection = -1;
+                this.setVelocityY(-Mothership.speedY);
+            }
+            if (this._hurt) {
+                this.setFrame(`${Mothership.framePrefix}0`);
+                this.setVelocity(this._xDirection * Mothership.speedX, this._yDirection * Mothership.speedY);
+                this._hurt = false;
+            }
 
-        const y = this.y + (this.y / 4)
-        if (this._lifeTime % 2 === 0) {
-            if (Math.floor(Math.random() * 1000) < 50) {
-                new RedEnemy(scene, this.x, y);
+            const y = this.y + (this.y / 4)
+            if (this._lifeTime % 2 === 0) {
+                if (Math.floor(Math.random() * 1000) < 50) {
+                    new RedEnemy(scene, this.x, y);
+                }
+                if (scene.score > Mothership.level1Score && Math.floor(Math.random() * 1000) < 30) {
+                    new YellowEnemy(scene, this.x, y);
+                }
+                if (scene.score > Mothership.level2Score && Math.floor(Math.random() * 1000) < 15) {
+                    new GreenEnemy(scene, this.x, y);
+                }
             }
-            if (scene.score > Mothership.level1Score && Math.floor(Math.random() * 1000) < 30) {
-                new YellowEnemy(scene, this.x, y);
+            if (scene.score > Mothership.level3Score && this._lifeTime % 100 === 0) {
+                new SpaceTorpedo(scene, this.x, y);
             }
-            if (scene.score > Mothership.level2Score && Math.floor(Math.random() * 1000) < 15) {
-                new GreenEnemy(scene, this.x, y);
+            if (scene.score > Mothership.level4Score && this._lifeTime % 100 === 0) {
+                new DarkLaser(scene, this.x, y);
             }
-        }
-        if (scene.score > Mothership.level3Score && this._lifeTime % 100 === 0) {
-            new SpaceTorpedo(scene, this.x, y);
-        }
-        if (scene.score > Mothership.level4Score && this._lifeTime % 100 === 0) {
-            new DarkLaser(scene, this.x, y);
-        }
+    
+            if (this._lifeTime > 8000) {
+                this._lifeTime = 1;
+            } else {
+                this._lifeTime++;
+            }
 
-        if (this._lifeTime > 8000) {
-            this._lifeTime = 1;
         } else {
-            this._lifeTime++;
+            this.setVelocity(0);
+            this.setFrame(`${Mothership.framePrefix}1`);
+            this._deathCounter--;
+            if (this._deathCounter > 0 && this._deathCounter % 20 == 0) {
+                const x = this.x + Math.floor(Math.random() * 180) - 90;
+                const y = this.y + Math.floor(Math.random() * 100) - 50;
+                new Explosion(scene, x, y, this._explosionFrame, { frameDelayFactor: 3 });
+            }
+            if (this._deathCounter < 0) {
+                new Explosion(scene, this.x, this.y, this._explosionFrame, { frameDelayFactor: 3 });
+                this.destroy();
+            }
         }
     }
 
     private _die(){
-        this.destroy();
+        this._dying = true;
     }
 
     takeHit(scene: MainScene, damage: number): number {
