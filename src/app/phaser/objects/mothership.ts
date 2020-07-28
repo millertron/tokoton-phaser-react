@@ -81,7 +81,7 @@ export class Mothership extends Phaser.Physics.Arcade.Sprite {
     }
 
     private _die(){
-        this.destroy;
+        this.destroy();
     }
 
     takeHit(scene: MainScene, damage: number): number {
@@ -93,8 +93,9 @@ export class Mothership extends Phaser.Physics.Arcade.Sprite {
         }
         if (this._hitPoints <= 0) {
             this._die();
+            return this._value;
         }
-        return this._value;
+        return 0;
     }
     
 }
