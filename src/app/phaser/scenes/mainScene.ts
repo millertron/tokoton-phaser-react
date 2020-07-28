@@ -57,11 +57,11 @@ export class MainScene extends Phaser.Scene {
     }
 
     public update() {
-        if (this._mothership) {
+        if (this._mothership && this._mothership.active) {
             this._mothership.move(this);
         }
         let player = <Player> this._player;
-        if (player) {
+        if (player && player.active) {
             const keyState: keyState = {
                 up: this._upKey ? this._upKey.isDown : false,
                 down: this._downKey ? this._downKey.isDown : false,
