@@ -12,13 +12,13 @@ export class Mothership extends Phaser.Physics.Arcade.Sprite {
     private static level1Score = 100;
     private static level2Score = 300;
     private static level3Score = 1000;
-    private static level4Score = 0;
+    private static level4Score = 2000;
     private static speedX = 80;
     private static speedY = 50;
     private static screenMargin = 0;
     private static amplitudeY = 180;
     private _lifeTime: number = 0;
-    private _hitPoints: number = 10;
+    private _hitPoints: number = 1000;
     private _value: number = 2000;
     private _hurt: boolean = false;
     private _xDirection: number = 0;
