@@ -1,3 +1,4 @@
+import { INITIAL_STATE, MAIN_PLAY_STATE, END_STATE } from './../types/gameState';
 import Phaser from 'phaser';
 //@ts-ignore
 import backgroundSky from '../assets/sprites/background_sky.png';
@@ -30,6 +31,7 @@ export class MainScene extends Phaser.Scene {
     private _explosions?: Phaser.Physics.Arcade.Group;
     private _score: number = 0;
     private _scoreText?: Phaser.GameObjects.Text;
+    private _gameState: number = MAIN_PLAY_STATE;
 
     public static backgroundKey = 'background';
     public static atlasKey = 'atlas';
@@ -57,8 +59,25 @@ export class MainScene extends Phaser.Scene {
     }
 
     public update() {
+        switch(this._gameState) {
+            case INITIAL_STATE:
+                this.updateInitialState();
+            case MAIN_PLAY_STATE:
+                this.updateMainState();
+            case END_STATE:
+                this.updateEndState();
+        }
+    }
+
+    private updateInitialState() {
+
+    }
+
+    private updateMainState() {
         if (this._mothership && this._mothership.active) {
             this._mothership.move(this);
+        } else {
+            this._gameState = END_STATE;
         }
         let player = <Player> this._player;
         if (player && player.active) {
@@ -75,7 +94,7 @@ export class MainScene extends Phaser.Scene {
         this.enemyProjectiles.getChildren().map(enemyProjectile => (<EnemyProjectile> enemyProjectile).move(this));
         this.explosions.getChildren().map(explosion => {
             (<Explosion> explosion).disperse();
-        })
+        });
 
         let score = this._score;
         let scene = this;
@@ -88,14 +107,14 @@ export class MainScene extends Phaser.Scene {
                 scoreText.setText(`Score: ${score}`);
                 bullet.explode(scene);
             }
-        })
+        });
         
         this.physics.overlap(this.bullets, this._mothership, function(mothershipObject: Phaser.GameObjects.GameObject, bulletObject: Phaser.GameObjects.GameObject) {
             const bullet = <Bullet> bulletObject;
             const mothership = <Mothership> mothershipObject;
             score += mothership.takeHit(scene, bullet.damage);
             bullet.explode(scene);
-        })
+        });
 
         this._score = score;
 
@@ -104,7 +123,13 @@ export class MainScene extends Phaser.Scene {
             if (enemyProjectile instanceof SpaceTorpedo || enemyProjectile instanceof DarkLaser) {
                 enemyProjectile.die(scene);
             }
-        })
+        });
+    }
+
+    private updateEndState() {
+        this.explosions.getChildren().map(explosion => {
+            (<Explosion> explosion).disperse();
+        });
     }
 
     get enemyProjectiles() {
