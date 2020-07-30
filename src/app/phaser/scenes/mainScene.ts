@@ -62,10 +62,15 @@ export class MainScene extends Phaser.Scene {
         switch(this._gameState) {
             case INITIAL_STATE:
                 this.updateInitialState();
+                break;
             case MAIN_PLAY_STATE:
                 this.updateMainState();
+                break;
             case END_STATE:
                 this.updateEndState();
+                break;
+            default:
+                return;
         }
     }
 
@@ -79,7 +84,7 @@ export class MainScene extends Phaser.Scene {
         } else {
             this._gameState = END_STATE;
         }
-        let player = <Player> this._player;
+        let player = this.player;
         if (player && player.active) {
             const keyState: keyState = {
                 up: this._upKey ? this._upKey.isDown : false,
@@ -127,6 +132,7 @@ export class MainScene extends Phaser.Scene {
     }
 
     private updateEndState() {
+        this.player.stop(this);
         this.explosions.getChildren().map(explosion => {
             (<Explosion> explosion).disperse();
         });

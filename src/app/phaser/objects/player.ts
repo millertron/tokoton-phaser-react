@@ -72,4 +72,11 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     private exhaust(scene: MainScene) {
         new PlasmaExhaust(scene, this.x, this.y + (this.height / 3), Exhaust.directionDown);
     }
+
+    public stop(scene: MainScene) {
+        this.setVelocity(0);
+        this.setFrame(Player.defaultFrame);
+        this.recoiledTrigger(scene, PlasmaExhaust.exhaustRecoil, this.exhaust);
+        this._lifeTime++;
+    }
 } 
